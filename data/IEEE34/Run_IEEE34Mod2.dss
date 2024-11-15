@@ -1,0 +1,28 @@
+
+!------------------------------------------------------------------------------------
+! Script to run IEEE 34-bus Test Feeder Mod 2
+!------------------------------------------------------------------------------------
+!
+! change the path to the appropriate location on your computer.
+
+Compile ieee34Mod2.dss
+
+New Energymeter.M1  Line.L1  1
+
+set maxcontroliter=300
+solve
+
+Buscoords IEEE34_BusXY.csv
+
+Show voltage LN Nodes
+Show currents element
+show powers kva element
+show taps
+
+Set MarkTransformers=yes
+Interpolate    ! requires an energyMeter
+plot circuit Power max=2000 y y C1=$00FF0000
+
+Plot profile phases=all
+
+
